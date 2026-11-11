@@ -20,7 +20,14 @@ function world({ jar = {}, pages = {}, clock = { t: 1_000_000 } } = {}) {
       get: async (query) => {
         calls.cookies.push(query)
         if (jar.broken) throw new Error('cookies unavailable')
-        const value = jar[`${query.url}|${query.name}`]
+        // Cookie с путём (`paths`: «сайт|имя» → путь) браузер отдаёт только адресам под этим путём.
+        const asked = new URL(query.url)
+        const scoped = (jar.paths || {})[`${asked.origin}|${query.name}`]
+        if (scoped) {
+          const fits = asked.pathname === scoped.path || asked.pathname.startsWith(scoped.path + '/')
+          return fits ? { name: query.name, value: scoped.value } : null
+        }
+        const value = jar[`${query.url}|${query.name}`] ?? jar[`${asked.origin}|${query.name}`]
         return value === undefined ? null : { name: query.name, value }
       },
       // Все cookie сайта — так окно смотрит, есть ли вообще cookie сессии у сервиса со страницей сессии.
@@ -68,6 +75,37 @@ test('Grok: сессия — cookie sso на grok.com, почта — со ст�
   // Страница сессии ответила «не вошли» или не тем — показываем без почты.
   const none = world({ jar: { 'https://grok.com|sso': 'eyJ0eXAi.abc.def' }, pages: { 'https://grok.com/api/auth/session': '{"status":"unauthenticated"}' } })
   assert.deepEqual(await none.reader.status('grok'), { signedIn: true, account: null, plan: null })
+})
+
+const HF_CLIENT = 'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImNsaWVudF90ZXN0In0.c2lnbmF0dXJl'
+const HF_PAGE = JSON.stringify({ response: { sessions: [{ status: 'active', user: { email_addresses: [{ email_address: 'alexander@example.com' }] } }] }, client: null })
+
+test('Higgsfield: сессия — cookie __client на higgsfield.ai, почта — из ответа о текущем входе под маской', async () => {
+  const w = world({
+    // Как в настоящем браузере: сессия лежит под путём `/_clerk`, отметка входа — на весь сайт.
+    jar: { paths: { 'https://higgsfield.ai|__client': { path: '/_clerk', value: HF_CLIENT } }, 'https://higgsfield.ai|__client_uat': '1794398200' },
+    pages: { 'https://higgsfield.ai/_clerk/v1/client': HF_PAGE },
+  })
+  assert.deepEqual(await w.reader.session('higgsfield'), { ok: true, value: HF_CLIENT })
+  assert.deepEqual(w.calls.cookies[0], { url: 'https://higgsfield.ai/_clerk/v1/client', name: '__client' })
+  assert.deepEqual(await w.reader.status('higgsfield'), { signedIn: true, account: 'alex•••@example.com', plan: null })
+})
+
+test('Higgsfield: сессия осталась в браузере, а сервис отметил выход — «не вошли», и отдавать нечего', async () => {
+  // Cookie сессии переживает выход из аккаунта: без отметки выхода окно показало бы «вошли» и передало бы в заказ
+  // сессию, которая уже не работает.
+  const out = world({ jar: { paths: { 'https://higgsfield.ai|__client': { path: '/_clerk', value: HF_CLIENT } }, 'https://higgsfield.ai|__client_uat': '0' } })
+  assert.deepEqual(await out.reader.status('higgsfield'), { signedIn: false, account: null, plan: null })
+  assert.equal((await out.reader.peek('higgsfield')).signedIn, false)
+  assert.equal((await out.reader.session('higgsfield')).ok, false)
+  assert.equal(out.calls.fetch.length, 0)
+  // Отметки нет вовсе — судим по самой сессии.
+  const bare = world({ jar: { paths: { 'https://higgsfield.ai|__client': { path: '/_clerk', value: HF_CLIENT } } } })
+  assert.equal((await bare.reader.peek('higgsfield')).signedIn, true)
+  // У остальных сервисов отметки выхода нет — лишних чтений cookie у них не появилось.
+  const claude = world({ jar: { 'https://claude.ai|sessionKey': SESSION_KEY } })
+  await claude.reader.peek('claude')
+  assert.deepEqual(claude.calls.cookies, [{ url: 'https://claude.ai', name: 'sessionKey' }])
 })
 
 test('ChatGPT: сессия — текст страницы сессии целиком, почта из неё же без второго запроса', async () => {

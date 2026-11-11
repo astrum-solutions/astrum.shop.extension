@@ -2,18 +2,18 @@
 
 Последнее изменение: 11 ноября 2026 · [English version](#english-version)
 
-**Коротко.** Расширение передаёт сессию Claude, ChatGPT или Grok в ваш заказ на [astrum.shop](https://astrum.shop) —
+**Коротко.** Расширение передаёт сессию Claude, ChatGPT, Grok или Higgsfield в ваш заказ на [astrum.shop](https://astrum.shop) —
 только по вашему нажатию. Оно ничего не хранит, своего сервера у него нет, рекламы и счётчиков в нём нет.
 
 ### 1. Зачем нужно расширение
 
-1.1. Расширение astrum.shop для браузера передаёт сессию Claude, ChatGPT или Grok в ваш заказ на сайте astrum.shop — чтобы мы включили оплаченную подписку на вашем аккаунте. Сессия — это уже выполненный вход в сервис. Пароль расширение не видит и не спрашивает.
+1.1. Расширение astrum.shop для браузера передаёт сессию Claude, ChatGPT, Grok или Higgsfield в ваш заказ на сайте astrum.shop — чтобы мы включили оплаченную подписку на вашем аккаунте. Сессия — это уже выполненный вход в сервис. Пароль расширение не видит и не спрашивает.
 
 1.2. Другого назначения у расширения нет. В нём нет рекламы, счётчиков посещений и стороннего кода; код из сети оно не загружает. Код расширения открыт и лежит в этом репозитории.
 
 ### 2. Что расширение видит
 
-2.1. Расширение работает только на сайтах claude.ai, chatgpt.com, grok.com и astrum.shop. На сайтах сервисов оно видит только то, что относится к вашему входу:
+2.1. Расширение работает только на сайтах claude.ai, chatgpt.com, grok.com, higgsfield.ai и astrum.shop. На сайтах сервисов оно видит только то, что относится к вашему входу:
 
 - вошли ли вы в сервис в этом браузере;
 - адрес электронной почты и тариф аккаунта — чтобы вы видели, сессию какого аккаунта передаёте. Почту расширение показывает и помнит только в скрытом виде, например alex•••@gmail.com;
@@ -53,8 +53,8 @@
 
 6.1. Расширение просит у браузера только то, без чего не может работать:
 
-- «Файлы cookie» (cookies) — узнать, вошли ли вы в сервис, и прочитать сессию Claude и Grok;
-- доступ к сайтам claude.ai, chatgpt.com и grok.com — узнать почту и тариф аккаунта и прочитать сессию ChatGPT;
+- «Файлы cookie» (cookies) — узнать, вошли ли вы в сервис, и прочитать сессию Claude, Grok и Higgsfield;
+- доступ к сайтам claude.ai, chatgpt.com, grok.com и higgsfield.ai — узнать почту и тариф аккаунта и прочитать сессию ChatGPT;
 - доступ к сайту astrum.shop и «Скрипты» (scripting) — связать расширение со страницей вашего заказа, в том числе во вкладке, которая уже была открыта при установке.
 
 ### 7. Как отозвать доступ
@@ -75,19 +75,19 @@
 
 ## English version
 
-**In short.** The extension passes your Claude, ChatGPT or Grok session into your order on
+**In short.** The extension passes your Claude, ChatGPT, Grok or Higgsfield session into your order on
 [astrum.shop](https://astrum.shop) — only when you click. It stores nothing, has no server of its own, and contains no
 ads or analytics.
 
 ### 1. What the extension is for
 
-1.1. The astrum.shop browser extension passes your Claude, ChatGPT or Grok session into your order on astrum.shop, so that we can activate the subscription you paid for on your own account. A session is a sign-in you have already completed. The extension never sees or asks for your password.
+1.1. The astrum.shop browser extension passes your Claude, ChatGPT, Grok or Higgsfield session into your order on astrum.shop, so that we can activate the subscription you paid for on your own account. A session is a sign-in you have already completed. The extension never sees or asks for your password.
 
 1.2. The extension has no other purpose. It contains no ads, no analytics and no third-party code, and it does not load code from the network. Its source code is open and lives in this repository.
 
 ### 2. What the extension reads
 
-2.1. The extension works only on claude.ai, chatgpt.com, grok.com and astrum.shop. On the service sites it reads only what relates to your sign-in:
+2.1. The extension works only on claude.ai, chatgpt.com, grok.com, higgsfield.ai and astrum.shop. On the service sites it reads only what relates to your sign-in:
 
 - whether you are signed in to the service in this browser;
 - the e-mail address and plan of the account — so that you can see which account's session you are about to pass. The e-mail is shown and kept only in masked form, for example alex•••@gmail.com;
@@ -127,8 +127,8 @@ ads or analytics.
 
 6.1. The extension asks the browser only for what it cannot work without:
 
-- cookies — to learn whether you are signed in and to read the Claude and Grok session;
-- access to claude.ai, chatgpt.com and grok.com — to learn the account e-mail and plan and to read the ChatGPT session;
+- cookies — to learn whether you are signed in and to read the Claude, Grok and Higgsfield session;
+- access to claude.ai, chatgpt.com, grok.com and higgsfield.ai — to learn the account e-mail and plan and to read the ChatGPT session;
 - access to astrum.shop and scripting — to connect the extension to your order page, including a tab that was already open when the extension was installed.
 
 ### 7. How to revoke access

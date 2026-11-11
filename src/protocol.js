@@ -33,7 +33,7 @@
    */
   const MARKER_ATTR = 'data-astrum-ext'
 
-  const SERVICE_IDS = ['claude', 'chatgpt', 'grok']
+  const SERVICE_IDS = ['claude', 'chatgpt', 'grok', 'higgsfield']
 
   /** Этап заказа, как его называет страница: ждёт сессию · сессия уже в форме · активация идёт. */
   const STAGES = ['need', 'have', 'running']

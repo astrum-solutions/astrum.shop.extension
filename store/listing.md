@@ -16,12 +16,14 @@
 | Поле | Что вписать |
 | --- | --- |
 | Название | из манифеста: `astrum.shop` |
-| Краткое описание | из манифеста: «Передаёт сессию Claude, ChatGPT или Grok в ваш заказ на astrum.shop — только по вашему нажатию.» |
+| Краткое описание | из манифеста: «Передаёт сессию Claude, ChatGPT, Grok или Higgsfield в ваш заказ на astrum.shop — только по вашему нажатию.» |
 | Язык | русский |
 | Категория | Инструменты (Tools) |
 | Значок 128×128 | из архива (`icons/icon-128.png`) |
 | Снимки 1280×800 | `screens/screen-1.png` … `screen-5.png`, в этом порядке |
 | Малая промо-плитка 440×280 | `screens/promo-440x280.png` |
+| Большая промо-плитка 1400×560 (по желанию) | `screens/promo-1400x560.png` |
+| Проморолик | не нужен |
 | Сайт (Homepage URL) | https://github.com/astrum-solutions/astrum.shop.extension |
 | Поддержка (Support URL) | https://astrum.shop |
 | Контент для взрослых | нет |
@@ -29,14 +31,14 @@
 ### Подробное описание
 
 ```text
-Расширение магазина astrum.shop передаёт сессию Claude, ChatGPT или Grok в ваш заказ на сайте astrum.shop — одним нажатием, без поиска cookie в настройках браузера.
+Расширение магазина astrum.shop передаёт сессию Claude, ChatGPT, Grok или Higgsfield в ваш заказ на сайте astrum.shop — одним нажатием, без поиска cookie в настройках браузера.
 
 ДЛЯ ЧЕГО
 Вы купили на astrum.shop подписку на нейросеть с активацией на вашем аккаунте. Чтобы её включить, магазину нужна сессия — уже выполненный вход в сервис. Пароль при этом не нужен, и расширение его не видит.
 
 КАК ЭТО РАБОТАЕТ
 1. Откройте свой заказ на astrum.shop.
-2. Войдите в Claude, ChatGPT или Grok в этом же браузере — если ещё не вошли.
+2. Войдите в Claude, ChatGPT, Grok или Higgsfield в этом же браузере — если ещё не вошли.
 3. Нажмите «Передать сессию» — на странице заказа или в окне расширения.
 4. Нажмите «Включить» на странице заказа.
 
@@ -45,7 +47,7 @@
 ЧТО РАСШИРЕНИЕ ДЕЛАЕТ С ДАННЫМИ
 • Сессия уходит только по вашему нажатию и только в ваш заказ на astrum.shop.
 • Расширение ничего не хранит и ничего не отправляет другим сайтам. Своего сервера у него нет.
-• Оно работает только на сайтах claude.ai, chatgpt.com, grok.com и astrum.shop. Другие сайты, историю браузера и пароли не видит.
+• Оно работает только на сайтах claude.ai, chatgpt.com, grok.com, higgsfield.ai и astrum.shop. Другие сайты, историю браузера и пароли не видит.
 • В нём нет рекламы и счётчиков.
 • Сессия нужна только чтобы включить оплаченную подписку; после активации она удаляется.
 
@@ -55,7 +57,7 @@
 Расширение — часть магазина astrum.shop. Оно не является продуктом Anthropic, OpenAI или xAI и не связано с ними.
 
 IN ENGLISH
-The astrum.shop extension lets a customer of the astrum.shop store pass the sign-in session of their own Claude, ChatGPT or Grok account into their own order on astrum.shop with one click, so the store can activate the subscription they paid for. The session is passed only when you click, only to your order page; the extension stores nothing and has no server of its own. Open source: https://github.com/astrum-solutions/astrum.shop.extension
+The astrum.shop extension lets a customer of the astrum.shop store pass the sign-in session of their own Claude, ChatGPT, Grok or Higgsfield account into their own order on astrum.shop with one click, so the store can activate the subscription they paid for. The session is passed only when you click, only to your order page; the extension stores nothing and has no server of its own. Open source: https://github.com/astrum-solutions/astrum.shop.extension
 ```
 
 ### Снимки
@@ -82,13 +84,13 @@ The astrum.shop extension lets a customer of the astrum.shop store pass the sign
 ### Единственное назначение (Single purpose)
 
 ```text
-The extension lets a customer of the astrum.shop store pass the sign-in session of their own Claude, ChatGPT or Grok account into their own order on astrum.shop with one click. The store uses the session only to activate the subscription the customer has paid for on that account. Nothing is read from other sites, nothing is stored, and the session is passed only when the user clicks «Передать сессию» (Pass the session) or «Скопировать» (Copy). The source code is open: https://github.com/astrum-solutions/astrum.shop.extension
+The extension lets a customer of the astrum.shop store pass the sign-in session of their own Claude, ChatGPT, Grok or Higgsfield account into their own order on astrum.shop with one click. The store uses the session only to activate the subscription the customer has paid for on that account. Nothing is read from other sites, nothing is stored, and the session is passed only when the user clicks «Передать сессию» (Pass the session) or «Скопировать» (Copy). The source code is open: https://github.com/astrum-solutions/astrum.shop.extension
 ```
 
 ### Обоснование доступа `cookies`
 
 ```text
-1) To know whether the user is signed in to claude.ai, chatgpt.com or grok.com, so that the popup and the order page show the right state and the right button. 2) To read the session cookie of claude.ai (sessionKey) and grok.com (sso) at the moment the user clicks «Передать сессию» (Pass the session) or «Скопировать» (Copy). cookies.onChanged is used only to refresh the signed-in state when the user signs in or out. Cookies of any other site are not accessible to the extension.
+1) To know whether the user is signed in to claude.ai, chatgpt.com, grok.com or higgsfield.ai, so that the popup and the order page show the right state and the right button. 2) To read the session cookie of claude.ai (sessionKey), grok.com (sso) and higgsfield.ai (__client) at the moment the user clicks «Передать сессию» (Pass the session) or «Скопировать» (Copy). cookies.onChanged is used only to refresh the signed-in state when the user signs in or out. Cookies of any other site are not accessible to the extension.
 ```
 
 ### Обоснование доступа `scripting`
@@ -100,7 +102,7 @@ Used only in runtime.onInstalled (install and update) to inject the extension's 
 ### Обоснование доступа к сайтам (Host permissions)
 
 ```text
-claude.ai, chatgpt.com, grok.com are the three services whose subscriptions the store activates. The extension requests the user's own account e-mail and plan name from the service — they are shown to the user in the popup (the e-mail only in masked form) so that the user can see which account's session they are passing — and, for ChatGPT, reads the session from the service's session endpoint when the user clicks. astrum.shop is the store's own site: the content script runs only there, tells the popup which order is open and which service's session it is waiting for, and puts the session into the order form when the user clicks. No wildcard hosts and no other sites are requested.
+claude.ai, chatgpt.com, grok.com and higgsfield.ai are the four services whose subscriptions the store activates. The extension requests the user's own account e-mail and plan name from the service — they are shown to the user in the popup (the e-mail only in masked form) so that the user can see which account's session they are passing — and, for ChatGPT, reads the session from the service's session endpoint when the user clicks. astrum.shop is the store's own site: the content script runs only there, tells the popup which order is open and which service's session it is waiting for, and puts the session into the order form when the user clicks. No wildcard hosts and no other sites are requested.
 ```
 
 ### Удалённый код (Remote code)
@@ -141,7 +143,7 @@ https://github.com/astrum-solutions/astrum.shop.extension/blob/main/PRIVACY.md
 Второй абзац — только если для проверяющих заведён пробный заказ: вместо `<ссылка>` — его адрес.
 
 ```text
-Without an order: click the extension icon. The popup lists Claude, ChatGPT and Grok and shows whether you are signed in to each of them in this browser. For a signed-in service «Скопировать» (Copy) puts the session on the clipboard; for the others «Войти» (Sign in) opens the service's sign-in page.
+Without an order: click the extension icon. The popup lists Claude, ChatGPT, Grok and Higgsfield and shows whether you are signed in to each of them in this browser. For a signed-in service «Скопировать» (Copy) puts the session on the clipboard; for the others «Войти» (Sign in) opens the service's sign-in page.
 
 With an order (a demo order, nothing is charged): <ссылка>. Sign in to claude.ai in the same browser, open the link and click «Передать сессию Claude» (Pass the Claude session). The session is placed into the order form and the tile shows the masked account e-mail. You do not need to press «Включить» (Activate).
 ```

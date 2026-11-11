@@ -71,7 +71,19 @@
           return UNKNOWN
         }
         const value = cookie && typeof cookie.value === 'string' ? cookie.value.trim() : ''
-        return value ? { state: 'in', value } : OUT
+        if (!value) return OUT
+        // Сессия на месте, а сервис отметил выход (cookie-отметка с известным значением) — не вошли: такая сессия
+        // уже не работает. Отметку прочитать не вышло или её нет — судим по самой сессии.
+        const mark = spec.session.signedOut
+        if (mark) {
+          try {
+            const flag = await cookies.get({ url: spec.session.url, name: mark.name })
+            if (flag && typeof flag.value === 'string' && flag.value.trim() === mark.value) return OUT
+          } catch {
+            /* отметка не прочиталась — остаёмся при сессии */
+          }
+        }
+        return { state: 'in', value }
       }
       // Страница сессии: вошедшему — JSON с признаком входа, невошедшему — JSON без него. Всё прочее (сбой сети,
       // не JSON, отказ) — «не знаем».

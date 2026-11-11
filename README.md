@@ -1,6 +1,6 @@
 # Расширение astrum.shop
 
-Передаёт сессию Claude, ChatGPT или Grok в ваш заказ на [astrum.shop](https://astrum.shop) — одним нажатием, без
+Передаёт сессию Claude, ChatGPT, Grok или Higgsfield в ваш заказ на [astrum.shop](https://astrum.shop) — одним нажатием, без
 поиска cookie в настройках браузера.
 
 [In English](#in-english) · [Что расширение видит](PRIVACY.md) · [Лицензия MIT](LICENSE)
@@ -9,7 +9,7 @@
 
 ## Зачем
 
-[astrum.shop](https://astrum.shop) — подписки на ChatGPT, Claude и Grok с активацией на вашем аккаунте; оплата картой,
+[astrum.shop](https://astrum.shop) — подписки на ChatGPT, Claude, Grok и Higgsfield с активацией на вашем аккаунте; оплата картой,
 СБП или USDT. Чтобы включить оплаченную подписку, магазину нужна **сессия** — уже выполненный вход в сервис. Пароль
 не нужен, и расширение его не видит.
 
@@ -19,7 +19,7 @@
 ## Как это работает
 
 1. Откройте свой заказ на astrum.shop.
-2. Войдите в Claude, ChatGPT или Grok в этом же браузере — если ещё не вошли.
+2. Войдите в Claude, ChatGPT, Grok или Higgsfield в этом же браузере — если ещё не вошли.
 3. Нажмите «Передать сессию» — на странице заказа или в окне расширения.
 4. Нажмите «Включить» на странице заказа.
 
@@ -35,7 +35,7 @@
 - Сессия уходит **только по вашему нажатию** и только на страницу вашего заказа на astrum.shop. Сайт сам запросить её
   не может.
 - Расширение **ничего не хранит** и ничего не отправляет другим сайтам. Своего сервера у него нет.
-- Оно работает только на `claude.ai`, `chatgpt.com`, `grok.com` и `astrum.shop`. Другие сайты, историю браузера и
+- Оно работает только на `claude.ai`, `chatgpt.com`, `grok.com`, `higgsfield.ai` и `astrum.shop`. Другие сайты, историю браузера и
   пароли не видит.
 - В нём нет рекламы, счётчиков и кода, который загружается из сети.
 
@@ -45,8 +45,8 @@
 
 | Доступ | Зачем |
 | --- | --- |
-| `cookies` | узнать, вошли ли вы в сервис, и прочитать сессию Claude и Grok |
-| сайты `claude.ai`, `chatgpt.com`, `grok.com` | узнать почту и тариф аккаунта и прочитать сессию ChatGPT |
+| `cookies` | узнать, вошли ли вы в сервис, и прочитать сессию Claude, Grok и Higgsfield |
+| сайты `claude.ai`, `chatgpt.com`, `grok.com`, `higgsfield.ai` | узнать почту и тариф аккаунта и прочитать сессию ChatGPT |
 | сайт `astrum.shop` и `scripting` | связать расширение со страницей вашего заказа, в том числе во вкладке, открытой до установки |
 
 ## Проверьте сами
@@ -99,22 +99,22 @@
 Код — под [лицензией MIT](LICENSE). Название и логотип astrum.shop лицензией не передаются. Шрифт Inter — под
 лицензией SIL Open Font License ([`src/fonts/OFL.txt`](src/fonts/OFL.txt)).
 
-Claude, ChatGPT и Grok — товарные знаки их владельцев. Расширение — часть магазина astrum.shop; оно не является
+Claude, ChatGPT, Grok и Higgsfield — товарные знаки их владельцев. Расширение — часть магазина astrum.shop; оно не является
 продуктом Anthropic, OpenAI или xAI и не связано с ними.
 
 ## In English
 
 The astrum.shop extension lets a customer of the [astrum.shop](https://astrum.shop) store pass the sign-in session of
-their own Claude, ChatGPT or Grok account into their own order with one click, so the store can activate the
+their own Claude, ChatGPT, Grok or Higgsfield account into their own order with one click, so the store can activate the
 subscription they paid for on that account.
 
 - The session is passed **only when you click**, and only to your order page on astrum.shop. The site cannot request it.
 - The extension **stores nothing** and sends nothing to any other site. It has no server of its own.
-- It works only on `claude.ai`, `chatgpt.com`, `grok.com` and `astrum.shop`.
+- It works only on `claude.ai`, `chatgpt.com`, `grok.com`, `higgsfield.ai` and `astrum.shop`.
 - No ads, no analytics, no remote code.
 
 Details: [PRIVACY.md](PRIVACY.md#english-version). The code in [`src/`](src) is plain scripts with no dependencies and
 no bundler — the same files go to the extension store. Run the tests with `node --test tests/`.
 
-Licensed under [MIT](LICENSE). Claude, ChatGPT and Grok are trademarks of their respective owners; this extension is
+Licensed under [MIT](LICENSE). Claude, ChatGPT, Grok and Higgsfield are trademarks of their respective owners; this extension is
 not affiliated with Anthropic, OpenAI or xAI.

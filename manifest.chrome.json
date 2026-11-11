@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "astrum.shop",
-  "version": "1.0.0",
-  "description": "Передаёт сессию Claude, ChatGPT или Grok в ваш заказ на astrum.shop — только по вашему нажатию.",
+  "version": "1.1.0",
+  "description": "Передаёт сессию Claude, ChatGPT, Grok или Higgsfield в ваш заказ на astrum.shop — только по вашему нажатию.",
   "homepage_url": "https://github.com/astrum-solutions/astrum.shop.extension",
   "icons": {
     "16": "icons/icon-16.png",
@@ -23,7 +23,7 @@
     "service_worker": "background.js"
   },
   "permissions": ["cookies", "scripting"],
-  "host_permissions": ["https://claude.ai/*", "https://chatgpt.com/*", "https://grok.com/*", "https://astrum.shop/*"],
+  "host_permissions": ["https://claude.ai/*", "https://chatgpt.com/*", "https://grok.com/*", "https://higgsfield.ai/*", "https://astrum.shop/*"],
   "content_scripts": [
     {
       "matches": ["https://astrum.shop/*"],

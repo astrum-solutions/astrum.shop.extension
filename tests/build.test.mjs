@@ -98,7 +98,7 @@ test('сессию не сохраняем: хранилищем расшире�
 })
 
 test('адреса в коде — только сайты сервисов и наш', () => {
-  const allowed = new Set(['astrum.shop', 'claude.ai', 'chatgpt.com', 'auth.openai.com', 'grok.com'])
+  const allowed = new Set(['astrum.shop', 'claude.ai', 'chatgpt.com', 'auth.openai.com', 'grok.com', 'higgsfield.ai'])
   for (const file of sources) {
     const urls = code(file).replace(/\/\/ .*$/gm, '').match(/https?:\/\/[a-z0-9.-]+/gi) || []
     for (const url of urls) assert.ok(allowed.has(new URL(url).hostname), `${file}: ${url}`)
@@ -107,8 +107,14 @@ test('адреса в коде — только сайты сервисов и �
 
 test('у каждого сервиса названо, где сессия и куда вести «Войти»', () => {
   assert.deepEqual(S.ORDER, Object.keys(S.SERVICES))
+  // Слова, которыми страница заказа называет сервис расширению, — те же сервисы: иначе новый сервис есть в окне, а
+  // страница заказа о нём не услышана.
+  assert.deepEqual([...require('../src/protocol.js').SERVICE_IDS].sort(), [...S.ORDER].sort())
   assert.deepEqual(S.SERVICES.claude.session, { type: 'cookie', url: 'https://claude.ai', name: 'sessionKey' })
   assert.deepEqual(S.SERVICES.grok.session, { type: 'cookie', url: 'https://grok.com', name: 'sso' })
+  // Сессию Higgsfield браузер отдаёт только адресам входа (`Path=/_clerk`): по корню сайта её не найти.
+  assert.deepEqual(S.SERVICES.higgsfield.session, { type: 'cookie', url: 'https://higgsfield.ai/_clerk/v1/client', name: '__client', signedOut: { name: '__client_uat', value: '0' } })
+  assert.equal(S.SERVICES.higgsfield.session.url, S.SERVICES.higgsfield.account.url)
   assert.equal(S.SERVICES.chatgpt.session.url, 'https://chatgpt.com/api/auth/session')
   for (const id of S.ORDER) {
     const spec = S.SERVICES[id]
@@ -124,6 +130,11 @@ test('перемену «вошёл / вышел» видим по cookie сес
   assert.equal(S.serviceOfCookie('.chatgpt.com', 'oai-sc'), null)
   assert.equal(S.serviceOfCookie('.grok.com', 'sso'), 'grok')
   assert.equal(S.serviceOfCookie('evilgrok.com', 'sso'), null)
+  // У Higgsfield «вошёл / вышел» видно и по сессии, и по отметке выхода; соседний короткий токен — не сигнал.
+  assert.equal(S.serviceOfCookie('higgsfield.ai', '__client'), 'higgsfield')
+  assert.equal(S.serviceOfCookie('.higgsfield.ai', '__client_uat'), 'higgsfield')
+  assert.equal(S.serviceOfCookie('higgsfield.ai', '__session'), null)
+  assert.equal(S.serviceOfCookie('.claude.ai', '__client_uat'), null)
 })
 
 // ⚠️⚠️ `PRIVACY.md` стоит в карточке магазина расширений как политика конфиденциальности. Магазин сверяет три вещи:
